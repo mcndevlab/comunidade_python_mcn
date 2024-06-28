@@ -15,8 +15,8 @@ app.config['SECRET_KEY'] = '75a5e191f27e56ab0e53ae19d10d2bec'
 #O código abaixo seleciona o BD tanto para qdo estiver no ambiente local como para qdo estiver em rede
 #O DATABASE_URL é uma variável presente do BD postgreSQL do railway, estando presente esta variável o python
 #Utilizara ela, não estando vai procurar o BD local.
-if os.getenv("DATABASE_URL"):
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+if os.getenv("DATABASE_PRIVATE_URL"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_PRIVATE_URL")
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///comunidade.db'
 
