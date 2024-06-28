@@ -5,12 +5,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import os
 
 app = Flask(__name__)
 
 #Aula 11 Criando os Usuarios
 app.config['SECRET_KEY'] = '75a5e191f27e56ab0e53ae19d10d2bec'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///comunidade.db'
+
+#O código abaixo seleciona o BD tanto para qdo estiver no ambiente local como para qdo estiver em rede
+#O DATABASE_URL é uma variável presente do BD postgreSQL do railway, estando presente esta variável o python
+#Utilizara ela, não estando vai procurar o BD local.
+if os.getenv("DATABASE_URL"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///comunidade.db'
 
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
